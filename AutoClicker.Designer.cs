@@ -31,37 +31,37 @@
             this.StartButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.ClickTypeBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.MouseButtonBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.CurrentPosRadio = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SetPosRadio = new System.Windows.Forms.RadioButton();
+            this.YPos = new System.Windows.Forms.TextBox();
+            this.XPos = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.MinutesBox = new System.Windows.Forms.TextBox();
+            this.SecondsBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.MillisecondsBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.SpeedSlider = new System.Windows.Forms.TrackBar();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.SliderRadio = new System.Windows.Forms.RadioButton();
+            this.ManualRadio = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.HoursBox = new System.Windows.Forms.TextBox();
+            this.SliderSpeedValue = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpeedSlider)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,9 +89,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.ClickTypeBox);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.MouseButtonBox);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 202);
@@ -101,13 +101,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Click Options";
             // 
-            // comboBox2
+            // ClickTypeBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(127, 86);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 24);
-            this.comboBox2.TabIndex = 3;
+            this.ClickTypeBox.FormattingEnabled = true;
+            this.ClickTypeBox.Items.AddRange(new object[] {
+            "Single",
+            "Double"});
+            this.ClickTypeBox.Location = new System.Drawing.Point(127, 86);
+            this.ClickTypeBox.Name = "ClickTypeBox";
+            this.ClickTypeBox.Size = new System.Drawing.Size(121, 24);
+            this.ClickTypeBox.TabIndex = 3;
             // 
             // label5
             // 
@@ -118,13 +121,17 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Click Type";
             // 
-            // comboBox1
+            // MouseButtonBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(127, 35);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 24);
-            this.comboBox1.TabIndex = 1;
+            this.MouseButtonBox.FormattingEnabled = true;
+            this.MouseButtonBox.Items.AddRange(new object[] {
+            "Left",
+            "Middle",
+            "Right"});
+            this.MouseButtonBox.Location = new System.Drawing.Point(127, 35);
+            this.MouseButtonBox.Name = "MouseButtonBox";
+            this.MouseButtonBox.Size = new System.Drawing.Size(121, 24);
+            this.MouseButtonBox.TabIndex = 1;
             // 
             // label4
             // 
@@ -138,11 +145,11 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.radioButton1);
+            this.groupBox2.Controls.Add(this.CurrentPosRadio);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.radioButton2);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.SetPosRadio);
+            this.groupBox2.Controls.Add(this.YPos);
+            this.groupBox2.Controls.Add(this.XPos);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(417, 202);
             this.groupBox2.Name = "groupBox2";
@@ -160,16 +167,16 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Y";
             // 
-            // radioButton1
+            // CurrentPosRadio
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(49, 38);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(127, 21);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Current Position";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.CurrentPosRadio.AutoSize = true;
+            this.CurrentPosRadio.Location = new System.Drawing.Point(49, 38);
+            this.CurrentPosRadio.Name = "CurrentPosRadio";
+            this.CurrentPosRadio.Size = new System.Drawing.Size(127, 21);
+            this.CurrentPosRadio.TabIndex = 0;
+            this.CurrentPosRadio.TabStop = true;
+            this.CurrentPosRadio.Text = "Current Position";
+            this.CurrentPosRadio.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -180,30 +187,30 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "X";
             // 
-            // radioButton2
+            // SetPosRadio
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(49, 75);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(101, 21);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Set Position";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.SetPosRadio.AutoSize = true;
+            this.SetPosRadio.Location = new System.Drawing.Point(49, 75);
+            this.SetPosRadio.Name = "SetPosRadio";
+            this.SetPosRadio.Size = new System.Drawing.Size(101, 21);
+            this.SetPosRadio.TabIndex = 1;
+            this.SetPosRadio.TabStop = true;
+            this.SetPosRadio.Text = "Set Position";
+            this.SetPosRadio.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // YPos
             // 
-            this.textBox2.Location = new System.Drawing.Point(218, 104);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 23);
-            this.textBox2.TabIndex = 3;
+            this.YPos.Location = new System.Drawing.Point(218, 104);
+            this.YPos.Name = "YPos";
+            this.YPos.Size = new System.Drawing.Size(100, 23);
+            this.YPos.TabIndex = 3;
             // 
-            // textBox1
+            // XPos
             // 
-            this.textBox1.Location = new System.Drawing.Point(76, 104);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 23);
-            this.textBox1.TabIndex = 2;
+            this.XPos.Location = new System.Drawing.Point(76, 104);
+            this.XPos.Name = "XPos";
+            this.XPos.Size = new System.Drawing.Size(100, 23);
+            this.XPos.TabIndex = 2;
             // 
             // label1
             // 
@@ -215,19 +222,19 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Auto Clicker";
             // 
-            // textBox4
+            // MinutesBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(196, 22);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 23);
-            this.textBox4.TabIndex = 1;
+            this.MinutesBox.Location = new System.Drawing.Point(196, 22);
+            this.MinutesBox.Name = "MinutesBox";
+            this.MinutesBox.Size = new System.Drawing.Size(100, 23);
+            this.MinutesBox.TabIndex = 1;
             // 
-            // textBox5
+            // SecondsBox
             // 
-            this.textBox5.Location = new System.Drawing.Point(365, 22);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 23);
-            this.textBox5.TabIndex = 2;
+            this.SecondsBox.Location = new System.Drawing.Point(365, 22);
+            this.SecondsBox.Name = "SecondsBox";
+            this.SecondsBox.Size = new System.Drawing.Size(100, 23);
+            this.SecondsBox.TabIndex = 2;
             // 
             // label6
             // 
@@ -256,12 +263,12 @@
             this.label8.TabIndex = 5;
             this.label8.Text = "Seconds";
             // 
-            // textBox6
+            // MillisecondsBox
             // 
-            this.textBox6.Location = new System.Drawing.Point(540, 22);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 23);
-            this.textBox6.TabIndex = 6;
+            this.MillisecondsBox.Location = new System.Drawing.Point(540, 22);
+            this.MillisecondsBox.Name = "MillisecondsBox";
+            this.MillisecondsBox.Size = new System.Drawing.Size(100, 23);
+            this.MillisecondsBox.TabIndex = 6;
             // 
             // label9
             // 
@@ -272,13 +279,13 @@
             this.label9.TabIndex = 7;
             this.label9.Text = "Milliseconds";
             // 
-            // trackBar1
+            // SpeedSlider
             // 
-            this.trackBar1.Location = new System.Drawing.Point(38, 94);
-            this.trackBar1.Maximum = 25;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(602, 45);
-            this.trackBar1.TabIndex = 8;
+            this.SpeedSlider.Location = new System.Drawing.Point(38, 94);
+            this.SpeedSlider.Maximum = 25;
+            this.SpeedSlider.Name = "SpeedSlider";
+            this.SpeedSlider.Size = new System.Drawing.Size(602, 45);
+            this.SpeedSlider.TabIndex = 8;
             // 
             // label10
             // 
@@ -306,45 +313,45 @@
             this.label13.TabIndex = 12;
             this.label13.Text = "clicks/sec";
             // 
-            // radioButton3
+            // SliderRadio
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(283, 67);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(62, 21);
-            this.radioButton3.TabIndex = 13;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Slider";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.SliderRadio.AutoSize = true;
+            this.SliderRadio.Location = new System.Drawing.Point(283, 67);
+            this.SliderRadio.Name = "SliderRadio";
+            this.SliderRadio.Size = new System.Drawing.Size(62, 21);
+            this.SliderRadio.TabIndex = 13;
+            this.SliderRadio.TabStop = true;
+            this.SliderRadio.Text = "Slider";
+            this.SliderRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // ManualRadio
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(388, 67);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(109, 21);
-            this.radioButton4.TabIndex = 14;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Manual Entry";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.ManualRadio.AutoSize = true;
+            this.ManualRadio.Location = new System.Drawing.Point(388, 67);
+            this.ManualRadio.Name = "ManualRadio";
+            this.ManualRadio.Size = new System.Drawing.Size(109, 21);
+            this.ManualRadio.TabIndex = 14;
+            this.ManualRadio.TabStop = true;
+            this.ManualRadio.Text = "Manual Entry";
+            this.ManualRadio.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox3);
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.radioButton4);
-            this.groupBox3.Controls.Add(this.radioButton3);
+            this.groupBox3.Controls.Add(this.HoursBox);
+            this.groupBox3.Controls.Add(this.SliderSpeedValue);
+            this.groupBox3.Controls.Add(this.ManualRadio);
+            this.groupBox3.Controls.Add(this.SliderRadio);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.trackBar1);
+            this.groupBox3.Controls.Add(this.SpeedSlider);
             this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Controls.Add(this.textBox6);
+            this.groupBox3.Controls.Add(this.MillisecondsBox);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.textBox5);
-            this.groupBox3.Controls.Add(this.textBox4);
+            this.groupBox3.Controls.Add(this.SecondsBox);
+            this.groupBox3.Controls.Add(this.MinutesBox);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(12, 51);
             this.groupBox3.Name = "groupBox3";
@@ -353,21 +360,21 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Mouse Speed";
             // 
-            // label12
+            // HoursBox
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(654, 112);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(32, 17);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "100";
+            this.HoursBox.Location = new System.Drawing.Point(38, 22);
+            this.HoursBox.Name = "HoursBox";
+            this.HoursBox.Size = new System.Drawing.Size(100, 23);
+            this.HoursBox.TabIndex = 16;
             // 
-            // textBox3
+            // SliderSpeedValue
             // 
-            this.textBox3.Location = new System.Drawing.Point(38, 22);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 23);
-            this.textBox3.TabIndex = 16;
+            this.SliderSpeedValue.AutoSize = true;
+            this.SliderSpeedValue.Location = new System.Drawing.Point(654, 112);
+            this.SliderSpeedValue.Name = "SliderSpeedValue";
+            this.SliderSpeedValue.Size = new System.Drawing.Size(32, 17);
+            this.SliderSpeedValue.TabIndex = 15;
+            this.SliderSpeedValue.Text = "100";
             // 
             // AutoClicker
             // 
@@ -389,7 +396,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpeedSlider)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -402,34 +409,34 @@
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.Button StopButton;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox ClickTypeBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox MouseButtonBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton CurrentPosRadio;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RadioButton SetPosRadio;
+        private System.Windows.Forms.TextBox YPos;
+        private System.Windows.Forms.TextBox XPos;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox MinutesBox;
+        private System.Windows.Forms.TextBox SecondsBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox MillisecondsBox;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar SpeedSlider;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton SliderRadio;
+        private System.Windows.Forms.RadioButton ManualRadio;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox HoursBox;
+        private System.Windows.Forms.Label SliderSpeedValue;
     }
 }
 

@@ -52,6 +52,7 @@
     <Compile Include="AutoClicker.Designer.cs">
       <DependentUpon>AutoClicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoClickerDriver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AutoClicker.resx">
