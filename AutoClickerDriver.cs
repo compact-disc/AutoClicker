@@ -34,6 +34,8 @@ namespace AutoClicker
         //Mouse tilt wheel movement
         private const int MOUSEEVENTF_HWHEEL = 0x01000;
 
+        private Boolean Enabled = false;
+
         public AutoClickerDriver()
         {
 

@@ -59,6 +59,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.HoursBox = new System.Windows.Forms.TextBox();
             this.SliderSpeedValue = new System.Windows.Forms.Label();
+            this.ClearButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedSlider)).BeginInit();
@@ -81,7 +82,7 @@
             this.StopButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StopButton.Location = new System.Drawing.Point(417, 363);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(375, 50);
+            this.StopButton.Size = new System.Drawing.Size(180, 50);
             this.StopButton.TabIndex = 1;
             this.StopButton.Text = "Stop [F6]";
             this.StopButton.UseVisualStyleBackColor = true;
@@ -177,6 +178,7 @@
             this.CurrentPosRadio.TabStop = true;
             this.CurrentPosRadio.Text = "Current Position";
             this.CurrentPosRadio.UseVisualStyleBackColor = true;
+            this.CurrentPosRadio.Click += new System.EventHandler(this.SetCurrentPositionRadioSelector);
             // 
             // label2
             // 
@@ -197,6 +199,7 @@
             this.SetPosRadio.TabStop = true;
             this.SetPosRadio.Text = "Set Position";
             this.SetPosRadio.UseVisualStyleBackColor = true;
+            this.SetPosRadio.Click += new System.EventHandler(this.SetPositionRadioSelector);
             // 
             // YPos
             // 
@@ -204,6 +207,7 @@
             this.YPos.Name = "YPos";
             this.YPos.Size = new System.Drawing.Size(100, 23);
             this.YPos.TabIndex = 3;
+            this.YPos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericValidation);
             // 
             // XPos
             // 
@@ -211,6 +215,7 @@
             this.XPos.Name = "XPos";
             this.XPos.Size = new System.Drawing.Size(100, 23);
             this.XPos.TabIndex = 2;
+            this.XPos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericValidation);
             // 
             // label1
             // 
@@ -228,6 +233,7 @@
             this.MinutesBox.Name = "MinutesBox";
             this.MinutesBox.Size = new System.Drawing.Size(100, 23);
             this.MinutesBox.TabIndex = 1;
+            this.MinutesBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericValidation);
             // 
             // SecondsBox
             // 
@@ -235,6 +241,7 @@
             this.SecondsBox.Name = "SecondsBox";
             this.SecondsBox.Size = new System.Drawing.Size(100, 23);
             this.SecondsBox.TabIndex = 2;
+            this.SecondsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericValidation);
             // 
             // label6
             // 
@@ -269,6 +276,7 @@
             this.MillisecondsBox.Name = "MillisecondsBox";
             this.MillisecondsBox.Size = new System.Drawing.Size(100, 23);
             this.MillisecondsBox.TabIndex = 6;
+            this.MillisecondsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericValidation);
             // 
             // label9
             // 
@@ -323,6 +331,7 @@
             this.SliderRadio.TabStop = true;
             this.SliderRadio.Text = "Slider";
             this.SliderRadio.UseVisualStyleBackColor = true;
+            this.SliderRadio.Click += new System.EventHandler(this.SetSliderRadioButton);
             // 
             // ManualRadio
             // 
@@ -334,6 +343,7 @@
             this.ManualRadio.TabStop = true;
             this.ManualRadio.Text = "Manual Entry";
             this.ManualRadio.UseVisualStyleBackColor = true;
+            this.ManualRadio.Click += new System.EventHandler(this.SetManualEntryRadioSelector);
             // 
             // groupBox3
             // 
@@ -366,6 +376,7 @@
             this.HoursBox.Name = "HoursBox";
             this.HoursBox.Size = new System.Drawing.Size(100, 23);
             this.HoursBox.TabIndex = 16;
+            this.HoursBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumericValidation);
             // 
             // SliderSpeedValue
             // 
@@ -376,11 +387,23 @@
             this.SliderSpeedValue.TabIndex = 15;
             this.SliderSpeedValue.Text = "100";
             // 
+            // ClearButton
+            // 
+            this.ClearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearButton.Location = new System.Drawing.Point(612, 363);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(180, 50);
+            this.ClearButton.TabIndex = 7;
+            this.ClearButton.Text = "Clear Entries";
+            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearEntryBoxes);
+            // 
             // AutoClicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 425);
+            this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -437,6 +460,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox HoursBox;
         private System.Windows.Forms.Label SliderSpeedValue;
+        private System.Windows.Forms.Button ClearButton;
     }
 }
 
