@@ -37,7 +37,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.CurrentPosRadio = new System.Windows.Forms.RadioButton();
+            this.ActivePosRadio = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.SetPosRadio = new System.Windows.Forms.RadioButton();
             this.YPos = new System.Windows.Forms.TextBox();
@@ -60,6 +60,7 @@
             this.HoursBox = new System.Windows.Forms.TextBox();
             this.SliderSpeedValue = new System.Windows.Forms.Label();
             this.ClearButton = new System.Windows.Forms.Button();
+            this.SetPositionLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedSlider)).BeginInit();
@@ -145,8 +146,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.SetPositionLabel);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.CurrentPosRadio);
+            this.groupBox2.Controls.Add(this.ActivePosRadio);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.SetPosRadio);
             this.groupBox2.Controls.Add(this.YPos);
@@ -168,17 +170,17 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Y";
             // 
-            // CurrentPosRadio
+            // ActivePosRadio
             // 
-            this.CurrentPosRadio.AutoSize = true;
-            this.CurrentPosRadio.Location = new System.Drawing.Point(49, 38);
-            this.CurrentPosRadio.Name = "CurrentPosRadio";
-            this.CurrentPosRadio.Size = new System.Drawing.Size(127, 21);
-            this.CurrentPosRadio.TabIndex = 0;
-            this.CurrentPosRadio.TabStop = true;
-            this.CurrentPosRadio.Text = "Current Position";
-            this.CurrentPosRadio.UseVisualStyleBackColor = true;
-            this.CurrentPosRadio.Click += new System.EventHandler(this.SetCurrentPositionRadioSelector);
+            this.ActivePosRadio.AutoSize = true;
+            this.ActivePosRadio.Location = new System.Drawing.Point(49, 38);
+            this.ActivePosRadio.Name = "ActivePosRadio";
+            this.ActivePosRadio.Size = new System.Drawing.Size(64, 21);
+            this.ActivePosRadio.TabIndex = 0;
+            this.ActivePosRadio.TabStop = true;
+            this.ActivePosRadio.Text = "Active";
+            this.ActivePosRadio.UseVisualStyleBackColor = true;
+            this.ActivePosRadio.Click += new System.EventHandler(this.SetActiveRadioSelector);
             // 
             // label2
             // 
@@ -290,10 +292,11 @@
             // SpeedSlider
             // 
             this.SpeedSlider.Location = new System.Drawing.Point(38, 94);
-            this.SpeedSlider.Maximum = 25;
+            this.SpeedSlider.Maximum = 20;
             this.SpeedSlider.Name = "SpeedSlider";
             this.SpeedSlider.Size = new System.Drawing.Size(602, 45);
             this.SpeedSlider.TabIndex = 8;
+            this.SpeedSlider.Scroll += new System.EventHandler(this.SliderScroll);
             // 
             // label10
             // 
@@ -317,9 +320,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(705, 112);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(68, 17);
+            this.label13.Size = new System.Drawing.Size(63, 17);
             this.label13.TabIndex = 12;
-            this.label13.Text = "clicks/sec";
+            this.label13.Text = "Seconds";
             // 
             // SliderRadio
             // 
@@ -368,7 +371,7 @@
             this.groupBox3.Size = new System.Drawing.Size(780, 145);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Mouse Speed";
+            this.groupBox3.Text = "Time Between Clicks";
             // 
             // HoursBox
             // 
@@ -383,9 +386,9 @@
             this.SliderSpeedValue.AutoSize = true;
             this.SliderSpeedValue.Location = new System.Drawing.Point(654, 112);
             this.SliderSpeedValue.Name = "SliderSpeedValue";
-            this.SliderSpeedValue.Size = new System.Drawing.Size(32, 17);
+            this.SliderSpeedValue.Size = new System.Drawing.Size(16, 17);
             this.SliderSpeedValue.TabIndex = 15;
-            this.SliderSpeedValue.Text = "100";
+            this.SliderSpeedValue.Text = "0";
             // 
             // ClearButton
             // 
@@ -397,6 +400,15 @@
             this.ClearButton.Text = "Clear Entries";
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearEntryBoxes);
+            // 
+            // SetPositionLabel
+            // 
+            this.SetPositionLabel.AutoSize = true;
+            this.SetPositionLabel.Location = new System.Drawing.Point(112, 130);
+            this.SetPositionLabel.Name = "SetPositionLabel";
+            this.SetPositionLabel.Size = new System.Drawing.Size(183, 17);
+            this.SetPositionLabel.TabIndex = 6;
+            this.SetPositionLabel.Text = "[F7] To Set Current Position";
             // 
             // AutoClicker
             // 
@@ -415,6 +427,7 @@
             this.Name = "AutoClicker";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Auto Clicker";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HotKeys);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -438,7 +451,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RadioButton CurrentPosRadio;
+        private System.Windows.Forms.RadioButton ActivePosRadio;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton SetPosRadio;
         private System.Windows.Forms.TextBox YPos;
@@ -461,6 +474,7 @@
         private System.Windows.Forms.TextBox HoursBox;
         private System.Windows.Forms.Label SliderSpeedValue;
         private System.Windows.Forms.Button ClearButton;
+        private System.Windows.Forms.Label SetPositionLabel;
     }
 }
 

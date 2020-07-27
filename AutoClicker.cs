@@ -45,10 +45,15 @@ namespace AutoClicker
         private int MouseButton;
         private int ClickType;
 
+        //Cursor position point
+        private Point CursorPoint = new Point();
+
         //Constructor to start the window and set defaults
         public AutoClicker()
         {
             InitializeComponent();
+
+            this.KeyPreview = true;
 
             MouseButtonBox.SelectedIndex = 0;
             MouseButtonBox.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -56,7 +61,7 @@ namespace AutoClicker
             ClickTypeBox.SelectedIndex = 0;
             ClickTypeBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            CurrentPosRadio.Checked = true;
+            ActivePosRadio.Checked = true;
             ManualRadio.Checked = true;
 
             ClearButton.BackColor = Color.LightBlue;
@@ -110,7 +115,7 @@ namespace AutoClicker
 
                 ManualRadio.Enabled = false;
                 SliderRadio.Enabled = false;
-                CurrentPosRadio.Enabled = false;
+                ActivePosRadio.Enabled = false;
                 SetPosRadio.Enabled = false;
 
                 if (ManualRadio.Checked)
@@ -122,7 +127,7 @@ namespace AutoClicker
 
                     ManualRadio.Enabled = false;
                     SliderRadio.Enabled = false;
-                    CurrentPosRadio.Enabled = false;
+                    ActivePosRadio.Enabled = false;
                     SetPosRadio.Enabled = false;
 
                     MouseButtonBox.Enabled = false;
@@ -173,7 +178,7 @@ namespace AutoClicker
 
                 ManualRadio.Enabled = true;
                 SliderRadio.Enabled = true;
-                CurrentPosRadio.Enabled = true;
+                ActivePosRadio.Enabled = true;
                 SetPosRadio.Enabled = true;
 
                 if (ManualRadio.Checked)
@@ -185,7 +190,7 @@ namespace AutoClicker
 
                     ManualRadio.Enabled = true;
                     SliderRadio.Enabled = true;
-                    CurrentPosRadio.Enabled = true;
+                    ActivePosRadio.Enabled = true;
                     SetPosRadio.Enabled = true;
 
                     MouseButtonBox.Enabled = true;
@@ -213,6 +218,40 @@ namespace AutoClicker
             }
         }
 
+        private void HotKeys(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.F6)
+            {
+                if(this.ClickerEnabled == true)
+                {
+                    StopButton.PerformClick();
+                }
+                else if(this.ClickerEnabled == false)
+                {
+                    StartButton.PerformClick();
+                }
+            }
+            if(e.KeyCode == Keys.F7 && this.ClickerEnabled == false && SetPosRadio.Checked)
+            {
+                this.Cursor = new Cursor(Cursor.Current.Handle);
+                this.CursorPoint = new Point(Cursor.Position.X, Cursor.Position.Y);
+                
+                this.XPosition = Cursor.Position.X;
+                this.YPosition = Cursor.Position.Y;
+
+                this.XPos.Text = Cursor.Position.X.ToString();
+                this.YPos.Text = Cursor.Position.Y.ToString();
+            }
+            if(e.KeyCode == Keys.Escape)
+            {
+                if(this.ClickerEnabled == true)
+                {
+                    this.ClickerThread.Abort();
+                }
+                Application.Exit();
+            }
+        }
+
         private void ClearEntryBoxes(object sender, EventArgs e)
         {
             HoursBox.Text = "";
@@ -232,7 +271,7 @@ namespace AutoClicker
             YPos.Enabled = true;
         }
 
-        private void SetCurrentPositionRadioSelector(object sender, EventArgs e)
+        private void SetActiveRadioSelector(object sender, EventArgs e)
         {
             XPos.Enabled = false;
             YPos.Enabled = false;
@@ -254,6 +293,12 @@ namespace AutoClicker
             MinutesBox.Enabled = false;
             SecondsBox.Enabled = false;
             MillisecondsBox.Enabled = false;
+        }
+
+        private void SliderScroll(object sender, EventArgs e)
+        {
+            this.SliderSpeed = SpeedSlider.Value * 10;
+            SliderSpeedValue.Text = this.SliderSpeed.ToString();
         }
 
         private void NumericValidation(object sender, KeyPressEventArgs e)
