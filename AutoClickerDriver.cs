@@ -37,16 +37,20 @@ namespace AutoClicker
 
         private Boolean Enabled = false;
 
+        private int TotalMilliseconds;
+
+        private Timer TickTimer;
+
         //Manaul Entry Constructor
         public AutoClickerDriver(int Milliseconds, int Seconds, int Minutes, int Hours, int MouseButton, int ClickType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition)
         {
-            //TODO
+            this.Enabled = true;
         }
 
         //Slider Entry Constructor
         public AutoClickerDriver(int SliderSpeed, int MouseButton, int ClickerType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition)
         {
-            //TODO
+            this.Enabled = true;
         }
 
         //Left click the mouse

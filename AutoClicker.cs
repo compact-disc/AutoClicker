@@ -100,6 +100,33 @@ namespace AutoClicker
         {
             if(this.ClickerEnabled == false)
             {
+                if (!String.IsNullOrWhiteSpace(MillisecondsBox.Text))
+                    this.Milliseconds = Int32.Parse(MillisecondsBox.Text.ToString());
+                
+                if (!String.IsNullOrWhiteSpace(SecondsBox.Text))
+                    this.Seconds = Int32.Parse(SecondsBox.Text.ToString());
+                
+                if (!String.IsNullOrWhiteSpace(MinutesBox.Text))
+                    this.Minutes = Int32.Parse(MinutesBox.Text.ToString());
+                
+                if (!String.IsNullOrWhiteSpace(HoursBox.Text))
+                    this.Hours = Int32.Parse(HoursBox.Text.ToString());
+
+                if (!String.IsNullOrWhiteSpace(XPos.Text))
+                    this.XPosition = Int32.Parse(XPos.Text.ToString());
+
+                if (!String.IsNullOrWhiteSpace(YPos.Text))
+                    this.YPosition = Int32.Parse(YPos.Text.ToString());
+
+                this.CursorPoint.X = this.XPosition;
+                this.CursorPoint.Y = this.YPosition;
+
+                this.ActivePosition = ActivePosRadio.Checked;
+                this.SetPosition = SetPosRadio.Checked;
+
+                this.MouseButton = MouseButtonBox.SelectedIndex;
+                this.ClickType = ClickTypeBox.SelectedIndex;
+
                 ClickerThread = new Thread(new ThreadStart(AutoClickerEnableThread));
                 ClickerThread.Start();
 
