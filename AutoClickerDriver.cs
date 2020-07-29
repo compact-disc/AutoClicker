@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -36,16 +37,23 @@ namespace AutoClicker
 
         private Boolean Enabled = false;
 
-        public AutoClickerDriver()
+        //Manaul Entry Constructor
+        public AutoClickerDriver(int Milliseconds, int Seconds, int Minutes, int Hours, int MouseButton, int ClickType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition)
         {
+            //TODO
+        }
 
+        //Slider Entry Constructor
+        public AutoClickerDriver(int SliderSpeed, int MouseButton, int ClickerType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition)
+        {
+            //TODO
         }
 
         //Left click the mouse
         private static void LeftClick()
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(5);
+            Thread.Sleep(1);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
         }
 
@@ -53,7 +61,7 @@ namespace AutoClicker
         private static void MiddleClick()
         {
             mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
-            Thread.Sleep(5);
+            Thread.Sleep(1);
             mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
         }
 
@@ -61,7 +69,7 @@ namespace AutoClicker
         private static void RightClick()
         {
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(5);
+            Thread.Sleep(1);
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
         }
 

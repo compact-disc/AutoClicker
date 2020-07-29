@@ -25,7 +25,7 @@ namespace AutoClicker
         private Boolean ManualEntry;
 
         //Mouse Position Selectors
-        private Boolean CurrentPosition;
+        private Boolean ActivePosition;
         private Boolean SetPosition;
 
         //Mouse Speed Options for manual entry
@@ -79,7 +79,7 @@ namespace AutoClicker
             this.Slider = false;
             this.ManualEntry = true;
 
-            this.CurrentPosition = true;
+            this.ActivePosition = true;
             this.SetPosition = false;
 
             this.Hours = 0;
@@ -157,7 +157,14 @@ namespace AutoClicker
 
         private void AutoClickerEnableThread()
         {
-            AutoClickerDriver AutoClick = new AutoClickerDriver();
+            if (this.ManualEntry)
+            {
+                AutoClickerDriver Click = new AutoClickerDriver(this.Milliseconds, this.Seconds, this.Minutes, this.Hours, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition);
+            }
+            else if (this.Slider)
+            {
+                AutoClickerDriver Click = new AutoClickerDriver(this.SliderSpeed, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition);
+            }
         }
 
         private void StopAutoClicker(object sender, EventArgs e)
@@ -305,7 +312,7 @@ namespace AutoClicker
         {
             if(!char.IsDigit(e.KeyChar) && (e.KeyChar != '\b'))
             {
-                e.Handled= true;
+                e.Handled = true;
             }
         }
     }
