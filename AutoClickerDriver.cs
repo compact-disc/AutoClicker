@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace AutoClicker
 {
@@ -39,18 +40,28 @@ namespace AutoClicker
 
         private int TotalMilliseconds;
 
-        private Timer TickTimer;
+        private System.Timers.Timer TickTimer;
 
-        //Manaul Entry Constructor
-        public AutoClickerDriver(int Milliseconds, int Seconds, int Minutes, int Hours, int MouseButton, int ClickType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition)
+        private int MouseButton, ClickType;
+        private Point CursorPosition;
+        private Boolean ActivePosition, SetPosition;
+
+        //Manual Entry Constructor
+        public AutoClickerDriver(int TotalMilliseconds, int MouseButton, int ClickType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition, Boolean Slider, Boolean ManualEntry)
         {
             this.Enabled = true;
+
+            this.TotalMilliseconds = TotalMilliseconds;
         }
 
-        //Slider Entry Constructor
-        public AutoClickerDriver(int SliderSpeed, int MouseButton, int ClickerType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition)
+        private void ManualEntryTick(Object source, ElapsedEventArgs e)
         {
-            this.Enabled = true;
+            Console.WriteLine("Manual");
+        }
+
+        private void SliderEntryTick(Object source, ElapsedEventArgs e)
+        {
+            Console.WriteLine("Slider");
         }
 
         //Left click the mouse

@@ -48,6 +48,9 @@ namespace AutoClicker
         //Cursor position point
         private Point CursorPoint = new Point();
 
+        //Total Milliseconds for the timer
+        private int TotalMilliseconds;
+
         //Constructor to start the window and set defaults
         public AutoClicker()
         {
@@ -186,11 +189,15 @@ namespace AutoClicker
         {
             if (this.ManualEntry)
             {
-                AutoClickerDriver Click = new AutoClickerDriver(this.Milliseconds, this.Seconds, this.Minutes, this.Hours, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition);
+                this.TotalMilliseconds = Milliseconds + (Seconds * 1000) + (Minutes * 60000) + (Hours * 3600000);
+
+                AutoClickerDriver Click = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
             }
             else if (this.Slider)
             {
-                AutoClickerDriver Click = new AutoClickerDriver(this.SliderSpeed, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition);
+                this.TotalMilliseconds = (SliderSpeed * 1000);
+
+                AutoClickerDriver Click = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
             }
         }
 
