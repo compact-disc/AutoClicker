@@ -99,22 +99,35 @@ namespace AutoClicker
             this.ClickType = 0;
         }
 
-        private void StartAutoClicker(object sender, EventArgs e)
+        private Boolean CheckValues()
         {
-            if(this.ClickerEnabled == false)
-            {
-                if (!String.IsNullOrWhiteSpace(MillisecondsBox.Text))
-                    this.Milliseconds = Int32.Parse(MillisecondsBox.Text.ToString());
-                
-                if (!String.IsNullOrWhiteSpace(SecondsBox.Text))
-                    this.Seconds = Int32.Parse(SecondsBox.Text.ToString());
-                
-                if (!String.IsNullOrWhiteSpace(MinutesBox.Text))
-                    this.Minutes = Int32.Parse(MinutesBox.Text.ToString());
-                
-                if (!String.IsNullOrWhiteSpace(HoursBox.Text))
-                    this.Hours = Int32.Parse(HoursBox.Text.ToString());
+            if (!String.IsNullOrWhiteSpace(MillisecondsBox.Text))
+                this.Milliseconds = Int32.Parse(MillisecondsBox.Text.ToString());
 
+            if (!String.IsNullOrWhiteSpace(SecondsBox.Text))
+                this.Seconds = Int32.Parse(SecondsBox.Text.ToString());
+
+            if (!String.IsNullOrWhiteSpace(MinutesBox.Text))
+                this.Minutes = Int32.Parse(MinutesBox.Text.ToString());
+
+            if (!String.IsNullOrWhiteSpace(HoursBox.Text))
+                this.Hours = Int32.Parse(HoursBox.Text.ToString());
+
+            if(this.Milliseconds > 0 || this.Seconds > 0 || this.Minutes > 0 || this.Hours > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        private Boolean CheckSetPosition()
+        {
+            if (this.SetPosition && !String.IsNullOrWhiteSpace(XPos.Text) && !String.IsNullOrWhiteSpace(YPos.Text))
+            {
                 if (!String.IsNullOrWhiteSpace(XPos.Text))
                     this.XPosition = Int32.Parse(XPos.Text.ToString());
 
@@ -124,6 +137,20 @@ namespace AutoClicker
                 this.CursorPoint.X = this.XPosition;
                 this.CursorPoint.Y = this.YPosition;
 
+                return true;
+            }
+            else if (this.ActivePosition)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void StartAutoClicker(object sender, EventArgs e)
+        {
+            if(this.ClickerEnabled == false && CheckValues() && CheckSetPosition())
+            {
                 this.ActivePosition = ActivePosRadio.Checked;
                 this.SetPosition = SetPosRadio.Checked;
 
@@ -302,18 +329,30 @@ namespace AutoClicker
             XPos.Text = "";
             YPos.Text = "";
 
+            this.Milliseconds = 0;
+            this.Seconds = 0;
+            this.Minutes = 0;
+            this.Hours = 0;
+
+            this.XPosition = 0;
+            this.YPosition = 0;
+
             MouseButtonBox.SelectedIndex = 0;
             ClickTypeBox.SelectedIndex = 0;
         }
 
         private void SetPositionRadioSelector(object sender, EventArgs e)
         {
+            this.SetPosition = true;
+            this.ActivePosition = false;
             XPos.Enabled = true;
             YPos.Enabled = true;
         }
 
         private void SetActiveRadioSelector(object sender, EventArgs e)
         {
+            this.SetPosition = false;
+            this.ActivePosition = true;
             XPos.Enabled = false;
             YPos.Enabled = false;
         }

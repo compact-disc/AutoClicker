@@ -44,7 +44,7 @@ namespace AutoClicker
 
         private int MouseButton, ClickType;
         private Point CursorPosition;
-        private Boolean ActivePosition, SetPosition;
+        private Boolean ActivePosition, SetPosition, Slider, ManualEntry;
 
         //Manual Entry Constructor
         public AutoClickerDriver(int TotalMilliseconds, int MouseButton, int ClickType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition, Boolean Slider, Boolean ManualEntry)
@@ -52,16 +52,36 @@ namespace AutoClicker
             this.Enabled = true;
 
             this.TotalMilliseconds = TotalMilliseconds;
+            this.MouseButton = MouseButton;
+            this.ClickType = ClickType;
+            this.CursorPosition = CursorPosition;
+            this.ActivePosition = ActivePosition;
+            this.SetPosition = SetPosition;
+            this.Slider = Slider;
+            this.ManualEntry = ManualEntry;
+
+            if (this.ActivePosition)
+            {
+                this.TickTimer = new System.Timers.Timer(this.TotalMilliseconds);
+                this.TickTimer.Elapsed += ActivePositionTick;
+                this.TickTimer.Start();
+            }
+            else if (this.SetPosition)
+            {
+                this.TickTimer = new System.Timers.Timer(this.TotalMilliseconds);
+                this.TickTimer.Elapsed += SetPositionTick;
+                this.TickTimer.Start();
+            }
         }
 
-        private void ManualEntryTick(Object source, ElapsedEventArgs e)
+        private void ActivePositionTick(Object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("Manual");
+            Console.WriteLine("Active");
         }
 
-        private void SliderEntryTick(Object source, ElapsedEventArgs e)
+        private void SetPositionTick(Object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("Slider");
+            Console.WriteLine("Set Position");
         }
 
         //Left click the mouse
