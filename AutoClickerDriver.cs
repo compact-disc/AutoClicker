@@ -42,7 +42,7 @@ namespace AutoClicker
 
         private System.Timers.Timer TickTimer;
 
-        private int MouseButton, ClickType;
+        private int MouseButton, ClickType, NumberOfClicks;
         private Point CursorPosition;
         private Boolean ActivePosition, SetPosition, Slider, ManualEntry;
 
@@ -60,6 +60,15 @@ namespace AutoClicker
             this.Slider = Slider;
             this.ManualEntry = ManualEntry;
 
+            if(this.ClickType == 0)
+            {
+                this.NumberOfClicks = 1;
+            }
+            else if(this.ClickType == 1)
+            {
+                this.NumberOfClicks = 2;
+            }
+
             if (this.ActivePosition)
             {
                 this.TickTimer = new System.Timers.Timer(this.TotalMilliseconds);
@@ -76,7 +85,37 @@ namespace AutoClicker
 
         private void ActivePositionTick(Object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("Active");
+            if (!AutoClicker.ClickerEnabled)
+            {
+                this.TickTimer.Stop();
+            }
+
+            switch (this.MouseButton)
+            {
+                //Left Click
+                case 0:
+                    for(int i = 0; i < this.NumberOfClicks; i++)
+                    {
+                        LeftClick();
+                    }
+                    break;
+
+                //Middle Click
+                case 1:
+                    for (int i = 0; i < this.NumberOfClicks; i++)
+                    {
+                        MiddleClick();
+                    }
+                    break;
+
+                //Right Click
+                case 2:
+                    for (int i = 0; i < this.NumberOfClicks; i++)
+                    {
+                        LeftClick();
+                    }
+                    break;
+            }
         }
 
         private void SetPositionTick(Object source, ElapsedEventArgs e)
@@ -88,7 +127,6 @@ namespace AutoClicker
         private static void LeftClick()
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(1);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
         }
 
@@ -96,7 +134,6 @@ namespace AutoClicker
         private static void MiddleClick()
         {
             mouse_event(MOUSEEVENTF_MIDDLEDOWN, 0, 0, 0, 0);
-            Thread.Sleep(1);
             mouse_event(MOUSEEVENTF_MIDDLEUP, 0, 0, 0, 0);
         }
 
@@ -104,7 +141,6 @@ namespace AutoClicker
         private static void RightClick()
         {
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-            Thread.Sleep(1);
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
         }
 

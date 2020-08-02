@@ -18,7 +18,7 @@ namespace AutoClicker
         private Thread ClickerThread;
 
         //Boolean to check if the clicker thread is running
-        private Boolean ClickerEnabled = false;
+        public static Boolean ClickerEnabled = false;
 
         //Mouse Speed Selectors
         private Boolean Slider;
@@ -50,6 +50,8 @@ namespace AutoClicker
 
         //Total Milliseconds for the timer
         private int TotalMilliseconds;
+
+        private AutoClickerDriver Click;
 
         //Constructor to start the window and set defaults
         public AutoClicker()
@@ -149,7 +151,7 @@ namespace AutoClicker
 
         private void StartAutoClicker(object sender, EventArgs e)
         {
-            if(this.ClickerEnabled == false && CheckValues() && CheckSetPosition())
+            if(ClickerEnabled == false && CheckValues() && CheckSetPosition())
             {
                 this.ActivePosition = ActivePosRadio.Checked;
                 this.SetPosition = SetPosRadio.Checked;
@@ -160,7 +162,7 @@ namespace AutoClicker
                 ClickerThread = new Thread(new ThreadStart(AutoClickerEnableThread));
                 ClickerThread.Start();
 
-                this.ClickerEnabled = true;
+                ClickerEnabled = true;
 
                 StartButton.BackColor = Color.Empty;
                 StopButton.BackColor = Color.IndianRed;
@@ -218,23 +220,23 @@ namespace AutoClicker
             {
                 this.TotalMilliseconds = Milliseconds + (Seconds * 1000) + (Minutes * 60000) + (Hours * 3600000);
 
-                AutoClickerDriver Click = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
+                this.Click = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
             }
             else if (this.Slider)
             {
                 this.TotalMilliseconds = (SliderSpeed * 1000);
 
-                AutoClickerDriver Click = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
+                this.Click = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
             }
         }
 
         private void StopAutoClicker(object sender, EventArgs e)
         {
-            if (this.ClickerEnabled)
+            if (ClickerEnabled)
             {
                 ClickerThread.Abort();
 
-                this.ClickerEnabled = false;
+                ClickerEnabled = false;
 
                 StartButton.BackColor = Color.LightGreen;
                 StopButton.BackColor = Color.Empty;
@@ -290,16 +292,16 @@ namespace AutoClicker
         {
             if(e.KeyCode == Keys.F6)
             {
-                if(this.ClickerEnabled == true)
+                if(ClickerEnabled == true)
                 {
                     StopButton.PerformClick();
                 }
-                else if(this.ClickerEnabled == false)
+                else if(ClickerEnabled == false)
                 {
                     StartButton.PerformClick();
                 }
             }
-            if(e.KeyCode == Keys.F7 && this.ClickerEnabled == false && SetPosRadio.Checked)
+            if(e.KeyCode == Keys.F7 && ClickerEnabled == false && SetPosRadio.Checked)
             {
                 this.Cursor = new Cursor(Cursor.Current.Handle);
                 this.CursorPoint = new Point(Cursor.Position.X, Cursor.Position.Y);
@@ -312,7 +314,7 @@ namespace AutoClicker
             }
             if(e.KeyCode == Keys.Escape)
             {
-                if(this.ClickerEnabled == true)
+                if(ClickerEnabled == true)
                 {
                     this.ClickerThread.Abort();
                 }
