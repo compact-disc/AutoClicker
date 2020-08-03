@@ -36,8 +36,6 @@ namespace AutoClicker
         //Mouse tilt wheel movement
         private const int MOUSEEVENTF_HWHEEL = 0x01000;
 
-        private Boolean Enabled = false;
-
         private int TotalMilliseconds;
 
         private System.Timers.Timer TickTimer;
@@ -49,8 +47,6 @@ namespace AutoClicker
         //Manual Entry Constructor
         public AutoClickerDriver(int TotalMilliseconds, int MouseButton, int ClickType, Point CursorPosition, Boolean ActivePosition, Boolean SetPosition, Boolean Slider, Boolean ManualEntry)
         {
-            this.Enabled = true;
-
             this.TotalMilliseconds = TotalMilliseconds;
             this.MouseButton = MouseButton;
             this.ClickType = ClickType;

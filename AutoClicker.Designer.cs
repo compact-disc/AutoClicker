@@ -36,6 +36,7 @@
             this.MouseButtonBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.SetPositionLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.ActivePosRadio = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
@@ -60,7 +61,6 @@
             this.HoursBox = new System.Windows.Forms.TextBox();
             this.SliderSpeedValue = new System.Windows.Forms.Label();
             this.ClearButton = new System.Windows.Forms.Button();
-            this.SetPositionLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedSlider)).BeginInit();
@@ -160,6 +160,15 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Mouse Position";
+            // 
+            // SetPositionLabel
+            // 
+            this.SetPositionLabel.AutoSize = true;
+            this.SetPositionLabel.Location = new System.Drawing.Point(112, 130);
+            this.SetPositionLabel.Name = "SetPositionLabel";
+            this.SetPositionLabel.Size = new System.Drawing.Size(183, 17);
+            this.SetPositionLabel.TabIndex = 6;
+            this.SetPositionLabel.Text = "[F7] To Set Current Position";
             // 
             // label3
             // 
@@ -318,11 +327,11 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(705, 112);
+            this.label13.Location = new System.Drawing.Point(696, 112);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(63, 17);
+            this.label13.Size = new System.Drawing.Size(84, 17);
             this.label13.TabIndex = 12;
-            this.label13.Text = "Seconds";
+            this.label13.Text = "Milliseconds";
             // 
             // SliderRadio
             // 
@@ -384,7 +393,7 @@
             // SliderSpeedValue
             // 
             this.SliderSpeedValue.AutoSize = true;
-            this.SliderSpeedValue.Location = new System.Drawing.Point(654, 112);
+            this.SliderSpeedValue.Location = new System.Drawing.Point(646, 112);
             this.SliderSpeedValue.Name = "SliderSpeedValue";
             this.SliderSpeedValue.Size = new System.Drawing.Size(16, 17);
             this.SliderSpeedValue.TabIndex = 15;
@@ -400,15 +409,6 @@
             this.ClearButton.Text = "Clear Entries";
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearEntryBoxes);
-            // 
-            // SetPositionLabel
-            // 
-            this.SetPositionLabel.AutoSize = true;
-            this.SetPositionLabel.Location = new System.Drawing.Point(112, 130);
-            this.SetPositionLabel.Name = "SetPositionLabel";
-            this.SetPositionLabel.Size = new System.Drawing.Size(183, 17);
-            this.SetPositionLabel.TabIndex = 6;
-            this.SetPositionLabel.Text = "[F7] To Set Current Position";
             // 
             // AutoClicker
             // 

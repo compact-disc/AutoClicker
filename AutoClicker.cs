@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +15,12 @@ namespace AutoClicker
 {
     public partial class AutoClicker : Form
     {
+        [DllImport("user32.dll")]
+        private static extern int RegisterHotKey(IntPtr hWnd, int id, uint modifier, uint vk);
+        private int HotKeyID = 1;
+
+        private const uint VK_F6 = 0x75;
+        private const uint VK_HOME = 0x24;
 
         //Separate thread to run the clicking operation
         private Thread ClickerThread;
@@ -51,11 +59,11 @@ namespace AutoClicker
         //Total Milliseconds for the timer
         private int TotalMilliseconds;
 
-        private AutoClickerDriver Click;
-
         //Constructor to start the window and set defaults
         public AutoClicker()
         {
+            RegisterHotKey(this.Handle, HotKeyID, 0x0000, VK_F6);
+
             InitializeComponent();
 
             this.KeyPreview = true;
@@ -115,7 +123,7 @@ namespace AutoClicker
             if (!String.IsNullOrWhiteSpace(HoursBox.Text))
                 this.Hours = Int32.Parse(HoursBox.Text.ToString());
 
-            if(this.Milliseconds > 0 || this.Seconds > 0 || this.Minutes > 0 || this.Hours > 0)
+            if(this.Milliseconds > 0 || this.Seconds > 0 || this.Minutes > 0 || this.Hours > 0 || this.SliderSpeed > 0)
             {
                 return true;
             }
@@ -220,13 +228,13 @@ namespace AutoClicker
             {
                 this.TotalMilliseconds = Milliseconds + (Seconds * 1000) + (Minutes * 60000) + (Hours * 3600000);
 
-                this.Click = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
+                _ = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
             }
             else if (this.Slider)
             {
-                this.TotalMilliseconds = (SliderSpeed * 1000);
+                this.TotalMilliseconds = SliderSpeed;
 
-                this.Click = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
+                _ = new AutoClickerDriver(this.TotalMilliseconds, this.MouseButton, this.ClickType, this.CursorPoint, this.ActivePosition, this.SetPosition, this.Slider, this.ManualEntry);
             }
         }
 
@@ -290,6 +298,7 @@ namespace AutoClicker
 
         private void HotKeys(object sender, KeyEventArgs e)
         {
+            /*
             if(e.KeyCode == Keys.F6)
             {
                 if(ClickerEnabled == true)
@@ -301,6 +310,7 @@ namespace AutoClicker
                     StartButton.PerformClick();
                 }
             }
+            */
             if(e.KeyCode == Keys.F7 && ClickerEnabled == false && SetPosRadio.Checked)
             {
                 this.Cursor = new Cursor(Cursor.Current.Handle);
@@ -366,6 +376,11 @@ namespace AutoClicker
             MinutesBox.Enabled = true;
             SecondsBox.Enabled = true;
             MillisecondsBox.Enabled = true;
+
+            this.ManualEntry = true;
+            this.Slider = false;
+
+            this.SliderSpeed = 0;
         }
 
         private void SetSliderRadioButton(object sender, EventArgs e)
@@ -375,6 +390,11 @@ namespace AutoClicker
             MinutesBox.Enabled = false;
             SecondsBox.Enabled = false;
             MillisecondsBox.Enabled = false;
+
+            this.Slider = true;
+            this.ManualEntry = false;
+
+            this.SliderSpeed = 0;
         }
 
         private void SliderScroll(object sender, EventArgs e)
@@ -389,6 +409,17 @@ namespace AutoClicker
             {
                 e.Handled = true;
             }
+        }
+
+        [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
+        protected override void WndProc(ref Message m)
+        {
+            if(m.Msg == VK_F6)
+            {
+                Console.WriteLine("Pressed");
+            }
+
+            base.WndProc(ref m);
         }
     }
 }
