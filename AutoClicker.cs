@@ -15,12 +15,26 @@ namespace AutoClicker
 {
     public partial class AutoClicker : Form
     {
-        [DllImport("user32.dll")]
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern int RegisterHotKey(IntPtr hWnd, int id, uint modifier, uint vk);
-        private int HotKeyID = 1;
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        private const uint VK_F6 = 0x75;
-        private const uint VK_HOME = 0x24;
+        //ID for the F6 Hotkey, used later to check which hotkey is being used
+        private const int F6HOTKEYID = 1;
+
+        //Constant value for the hotkey value using WndProc
+        private const int WM_HOTKEY = 0x0312;
+
+        //Modifiers for Hotkey registry
+        private enum Modifiers
+        {
+            NONE = 0x0000,
+            ALT = 0x0001,
+            CONTROL = 0x0002,
+            SHIFT = 0x0004,
+            WINDOWS = 0x0008
+        }
 
         //Separate thread to run the clicking operation
         private Thread ClickerThread;
@@ -62,8 +76,6 @@ namespace AutoClicker
         //Constructor to start the window and set defaults
         public AutoClicker()
         {
-            RegisterHotKey(this.Handle, HotKeyID, 0x0000, VK_F6);
-
             InitializeComponent();
 
             this.KeyPreview = true;
@@ -107,6 +119,45 @@ namespace AutoClicker
 
             this.MouseButton = 0;
             this.ClickType = 0;
+        }
+
+        //Method to run when the Auto Clicker window loads
+        private void AutoClickerFormLoad(object sender, EventArgs e)
+        {
+            //Register the F6 hotkey with the system
+            RegisterHotKey(this.Handle, F6HOTKEYID, (uint)Modifiers.NONE, (uint)Keys.F6);
+        }
+
+        //Method to run when the Auto Clicker window closes
+        private void AutoClickerFormClose(object sender, FormClosedEventArgs e)
+        {
+            //Unregister the F6 hotkey with the system
+            UnregisterHotKey(this.Handle, F6HOTKEYID);
+        }
+
+        [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+        protected override void WndProc(ref Message m)
+        {
+            //Check for key down press
+            if(m.Msg == WM_HOTKEY)
+            {
+                //Switch over the ID assigned
+                switch (m.WParam.ToInt32())
+                {
+                    case F6HOTKEYID:
+                        if (ClickerEnabled == true)
+                        {
+                            StopButton.PerformClick();
+                        }
+                        else if (ClickerEnabled == false)
+                        {
+                            StartButton.PerformClick();
+                        }
+                        break;
+                }
+            }
+
+            base.WndProc(ref m);
         }
 
         private Boolean CheckValues()
@@ -298,19 +349,6 @@ namespace AutoClicker
 
         private void HotKeys(object sender, KeyEventArgs e)
         {
-            /*
-            if(e.KeyCode == Keys.F6)
-            {
-                if(ClickerEnabled == true)
-                {
-                    StopButton.PerformClick();
-                }
-                else if(ClickerEnabled == false)
-                {
-                    StartButton.PerformClick();
-                }
-            }
-            */
             if(e.KeyCode == Keys.F7 && ClickerEnabled == false && SetPosRadio.Checked)
             {
                 this.Cursor = new Cursor(Cursor.Current.Handle);
@@ -327,6 +365,7 @@ namespace AutoClicker
                 if(ClickerEnabled == true)
                 {
                     this.ClickerThread.Abort();
+                    ClickerEnabled = false;
                 }
                 Application.Exit();
             }
@@ -405,21 +444,10 @@ namespace AutoClicker
 
         private void NumericValidation(object sender, KeyPressEventArgs e)
         {
-            if(!char.IsDigit(e.KeyChar) && (e.KeyChar != '\b'))
+            if (!char.IsDigit(e.KeyChar) && (e.KeyChar != '\b'))
             {
                 e.Handled = true;
             }
-        }
-
-        [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name="FullTrust")]
-        protected override void WndProc(ref Message m)
-        {
-            if(m.Msg == VK_F6)
-            {
-                Console.WriteLine("Pressed");
-            }
-
-            base.WndProc(ref m);
         }
     }
 }

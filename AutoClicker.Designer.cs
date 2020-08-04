@@ -427,6 +427,8 @@
             this.Name = "AutoClicker";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Auto Clicker";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AutoClickerFormClose);
+            this.Load += new System.EventHandler(this.AutoClickerFormLoad);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HotKeys);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
