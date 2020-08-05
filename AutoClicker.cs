@@ -20,8 +20,9 @@ namespace AutoClicker
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        //ID for the F6 Hotkey, used later to check which hotkey is being used
+        //ID for the F6, F7 Hotkey, used later to check which hotkey is being used
         private const int F6HOTKEYID = 1;
+        private const int F7HOTKEYID = 2;
 
         //Constant value for the hotkey value using WndProc
         private const int WM_HOTKEY = 0x0312;
@@ -126,6 +127,9 @@ namespace AutoClicker
         {
             //Register the F6 hotkey with the system
             RegisterHotKey(this.Handle, F6HOTKEYID, (uint)Modifiers.NONE, (uint)Keys.F6);
+
+            //Register the F7 hotkey with the system
+            RegisterHotKey(this.Handle, F7HOTKEYID, (uint)Modifiers.NONE, (uint)Keys.F7);
         }
 
         //Method to run when the Auto Clicker window closes
@@ -133,6 +137,9 @@ namespace AutoClicker
         {
             //Unregister the F6 hotkey with the system
             UnregisterHotKey(this.Handle, F6HOTKEYID);
+
+            //Unregister the F7 hotkey with the system
+            UnregisterHotKey(this.Handle, F7HOTKEYID);
         }
 
         [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
@@ -152,6 +159,20 @@ namespace AutoClicker
                         else if (ClickerEnabled == false)
                         {
                             StartButton.PerformClick();
+                        }
+                        break;
+
+                    case F7HOTKEYID:
+                        if (ClickerEnabled == false && SetPosRadio.Checked)
+                        {
+                            this.Cursor = new Cursor(Cursor.Current.Handle);
+                            this.CursorPoint = new Point(Cursor.Position.X, Cursor.Position.Y);
+
+                            this.XPosition = Cursor.Position.X;
+                            this.YPosition = Cursor.Position.Y;
+
+                            this.XPos.Text = Cursor.Position.X.ToString();
+                            this.YPos.Text = Cursor.Position.Y.ToString();
                         }
                         break;
                 }
@@ -347,19 +368,9 @@ namespace AutoClicker
             }
         }
 
+        //Hotkeys for when the window is in focus
         private void HotKeys(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.F7 && ClickerEnabled == false && SetPosRadio.Checked)
-            {
-                this.Cursor = new Cursor(Cursor.Current.Handle);
-                this.CursorPoint = new Point(Cursor.Position.X, Cursor.Position.Y);
-                
-                this.XPosition = Cursor.Position.X;
-                this.YPosition = Cursor.Position.Y;
-
-                this.XPos.Text = Cursor.Position.X.ToString();
-                this.YPos.Text = Cursor.Position.Y.ToString();
-            }
             if(e.KeyCode == Keys.Escape)
             {
                 if(ClickerEnabled == true)

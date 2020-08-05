@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Timers;
@@ -27,14 +29,11 @@ namespace AutoClicker
         private const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
         private const int MOUSEEVENTF_RIGHTUP = 0x0010;
 
-        //Mouse move value
-        private const int MOUSEEVENTF_MOVE = 0x0001;
-
-        //Mouse wheel movement
-        private const int MOUSEEVENTF_WHEEL = 0x0800;
-
-        //Mouse tilt wheel movement
-        private const int MOUSEEVENTF_HWHEEL = 0x01000;
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern void SendMessage(uint hWnd, uint Msg, uint WParam, uint lParam);
+        private const uint HWND_BROADCAST = 0xffff;
+        private const uint WM_LBUTTONDOWN = 0x0201;
+        private const uint WM_LBUTTONUP = 0x0202;
 
         private int TotalMilliseconds;
 
@@ -108,7 +107,7 @@ namespace AutoClicker
                 case 2:
                     for (int i = 0; i < this.NumberOfClicks; i++)
                     {
-                        LeftClick();
+                        RightClick();
                     }
                     break;
             }
@@ -116,7 +115,37 @@ namespace AutoClicker
 
         private void SetPositionTick(Object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("Set Position");
+            if (!AutoClicker.ClickerEnabled)
+            {
+                this.TickTimer.Stop();
+            }
+
+            switch (this.MouseButton)
+            {
+                //Left Click
+                case 0:
+                    for (int i = 0; i < this.NumberOfClicks; i++)
+                    {
+                        PosLeftClick();
+                    }
+                    break;
+
+                //Middle Click
+                case 1:
+                    for (int i = 0; i < this.NumberOfClicks; i++)
+                    {
+                        PosMiddleClick();
+                    }
+                    break;
+
+                //Right Click
+                case 2:
+                    for (int i = 0; i < this.NumberOfClicks; i++)
+                    {
+                        PosRightClick();
+                    }
+                    break;
+            }
         }
 
         //Left click the mouse
@@ -140,17 +169,19 @@ namespace AutoClicker
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
         }
 
-        //Move the mouse based on the change in x and y values
-        private static void MoveMouse(int dx, int dy)
+        private void PosLeftClick()
         {
-            mouse_event(MOUSEEVENTF_MOVE, dx, dy, 0, 0);
+
+        }
+        
+        private void PosMiddleClick()
+        {
+
         }
 
-        //Acceleration for mouse movement
-        private static double Acceleration(double a0, double a1, double b0, double b1, double a)
+        private void PosRightClick()
         {
-            return b0 + (b1 - b0) * ((a - a0) / (a1 - a0));
-        }
 
+        }
     }
 }
