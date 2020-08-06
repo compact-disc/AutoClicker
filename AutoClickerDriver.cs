@@ -13,6 +13,9 @@ namespace AutoClicker
 {
     class AutoClickerDriver
     {
+        //Set the cursor position
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool SetCursorPos(int x, int y);
         //Mouse event method to be called with parameters for mouse functions
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern void mouse_event(int dwFlags, int dx, int dy, int dwData, int dwExtraInfo);
@@ -28,12 +31,6 @@ namespace AutoClicker
         //Mouse right click values
         private const int MOUSEEVENTF_RIGHTDOWN = 0x0008;
         private const int MOUSEEVENTF_RIGHTUP = 0x0010;
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern void SendMessage(uint hWnd, uint Msg, uint WParam, uint lParam);
-        private const uint HWND_BROADCAST = 0xffff;
-        private const uint WM_LBUTTONDOWN = 0x0201;
-        private const uint WM_LBUTTONUP = 0x0202;
 
         private int TotalMilliseconds;
 
@@ -126,7 +123,7 @@ namespace AutoClicker
                 case 0:
                     for (int i = 0; i < this.NumberOfClicks; i++)
                     {
-                        PosLeftClick();
+                        PosLeftClick(this.CursorPosition.X, this.CursorPosition.Y);
                     }
                     break;
 
@@ -134,7 +131,7 @@ namespace AutoClicker
                 case 1:
                     for (int i = 0; i < this.NumberOfClicks; i++)
                     {
-                        PosMiddleClick();
+                        PosMiddleClick(this.CursorPosition.X, this.CursorPosition.Y);
                     }
                     break;
 
@@ -142,7 +139,7 @@ namespace AutoClicker
                 case 2:
                     for (int i = 0; i < this.NumberOfClicks; i++)
                     {
-                        PosRightClick();
+                        PosRightClick(this.CursorPosition.X, this.CursorPosition.Y);
                     }
                     break;
             }
@@ -169,19 +166,25 @@ namespace AutoClicker
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
         }
 
-        private void PosLeftClick()
+        private void PosLeftClick(int x, int y)
         {
-
+            SetCursorPos(x, y);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
         }
         
-        private void PosMiddleClick()
+        private void PosMiddleClick(int x, int y)
         {
-
+            SetCursorPos(x, y);
+            mouse_event(MOUSEEVENTF_MIDDLEDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_MIDDLEUP, x, y, 0, 0);
         }
 
-        private void PosRightClick()
+        private void PosRightClick(int x, int y)
         {
-
+            SetCursorPos(x, y);
+            mouse_event(MOUSEEVENTF_RIGHTDOWN, x, y, 0, 0);
+            mouse_event(MOUSEEVENTF_RIGHTUP, x, y, 0, 0);
         }
     }
 }
