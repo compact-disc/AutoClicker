@@ -380,6 +380,10 @@ namespace AutoClicker
                 }
                 Application.Exit();
             }
+            if(e.KeyCode == Keys.F8)
+            {
+                ClearButton.PerformClick();
+            }
         }
 
         private void ClearEntryBoxes(object sender, EventArgs e)
